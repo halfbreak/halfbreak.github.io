@@ -58,3 +58,9 @@ Although _RabbitMQ_ doesn't support partitioning it is possible to simulate it, 
 ### But this seems like too much work.
 
 Yes. But there is a system that already does all of this natively, Apache Kafka. It is heavier and more difficult to setup, it brings zookeeper together as well, but it fulfills all the requirements without needing to limit concurrent consumers or creating virtual partitions. It just works.
+
+# References
+
+- [Should You Put Several Event Types in the Same Kafka Topic?](https://www.confluent.io/blog/put-several-event-types-kafka-topic/)
+- [Putting Several Event Types in the Same Topic – Revisited](https://www.confluent.io/blog/multiple-event-types-in-the-same-kafka-topic/)
+- [Different event types in the same topic in Spring Kafka](https://stackoverflow.com/questions/59731673/can-multiple-kafkalistener-classes-listen-to-the-same-topic)
