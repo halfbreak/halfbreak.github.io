@@ -11,14 +11,14 @@ In the previous post, we discussed why we would want to process events in a orde
 
 # The solution
 
-The strategy is illustrated in the following image:
+The strategy discussed in the previous post can also be implemented in-memory, as illustrated in the following image:
 
 ![image](\assets\images\article_02_diagram.jpg)
 
-For this strategy to work we have a single consumer per queue (represented as _Rabbit Consumer_) which grabs events from the _RabbitMQ_ queue and puts it into an in-memory queue, implemented as a _LinkedBlockingQueue_ here. 
+For this strategy to work we have a single consumer per RabbitMQ queue (represented as _Rabbit Consumer_), which grabs events from the _RabbitMQ_ queue and puts it into an in-memory queue, implemented as a _LinkedBlockingQueue_ here. 
 
-The dispatcher which runs on another thread, so as to not block the _Rabbit Consumer_, picks events from the queue and dispatches it to its partition, by writing it to the partition queue. The partition is computed using a pre-configured field from the event payload and a classic hashing/modulo technique. 
+The dispatcher which runs on another thread, to not block the _Rabbit Consumer_, picks events from the in-memory queue and dispatches it to its partition, by writing it to the partition's in-memory queue. The partition is computed using a pre-configured field from the event payload and a classic hashing/modulo technique. 
 
-Then there are as much handlers as there are partitions, each consuming from its own queue and processing events as they come.
+Then there are as many handlers as there are partitions, each consuming from its own in-memory queue and processing events as they come.
 
 The example code is available [here](https://github.com/halfbreak/rabbit-dispatcher).
